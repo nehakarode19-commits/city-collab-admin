@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, Calendar as CalendarIcon, MapPin, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CreateEventModal } from "@/components/events/CreateEventModal";
 
 interface Event {
   id: string;
@@ -53,6 +55,8 @@ const mockEvents: Event[] = [
 ];
 
 const Events = () => {
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+
   const getStatusColor = (status: Event["status"]) => {
     switch (status) {
       case "upcoming":
@@ -71,11 +75,13 @@ const Events = () => {
           <h1 className="text-3xl font-bold">Events</h1>
           <p className="text-muted-foreground mt-1">Manage all platform events</p>
         </div>
-        <Button>
+        <Button onClick={() => setCreateModalOpen(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Create Event
         </Button>
       </div>
+
+      <CreateEventModal open={createModalOpen} onOpenChange={setCreateModalOpen} />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {mockEvents.map((event) => (
