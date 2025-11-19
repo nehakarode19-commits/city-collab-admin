@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Filter } from "lucide-react";
+import { AddOrganizationModal } from "@/components/organizations/AddOrganizationModal";
 import {
   Table,
   TableBody,
@@ -64,6 +65,7 @@ const mockOrganizations: Organization[] = [
 
 const Organizations = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [addModalOpen, setAddModalOpen] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -72,7 +74,7 @@ const Organizations = () => {
           <h1 className="text-3xl font-bold">Organizations</h1>
           <p className="text-muted-foreground mt-1">Manage all registered organizations</p>
         </div>
-        <Button>
+        <Button onClick={() => setAddModalOpen(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Add Organization
         </Button>
@@ -131,6 +133,8 @@ const Organizations = () => {
           </TableBody>
         </Table>
       </Card>
+
+      <AddOrganizationModal open={addModalOpen} onOpenChange={setAddModalOpen} />
     </div>
   );
 };
