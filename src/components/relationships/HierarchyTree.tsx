@@ -13,62 +13,87 @@ interface HierarchyNode {
 }
 
 const hierarchyData: HierarchyNode = {
-  id: "india",
-  name: "India",
+  id: "usa",
+  name: "U.S.A",
   type: "country",
   children: [
     {
-      id: "maharashtra",
-      name: "Maharashtra",
+      id: "california",
+      name: "California",
       type: "state",
       children: [
         {
-          id: "mumbai",
-          name: "Mumbai",
+          id: "los-angeles",
+          name: "Los Angeles",
           type: "city",
           children: [
-            { id: "mumbai-central", name: "Mumbai Central Chapter", type: "chapter", activeMembers: 145 },
-            { id: "mumbai-south", name: "Mumbai South Chapter", type: "chapter", activeMembers: 98 },
+            { id: "la-downtown", name: "Los Angeles Downtown Chapter", type: "chapter", activeMembers: 145 },
+            { id: "la-westside", name: "Los Angeles Westside Chapter", type: "chapter", activeMembers: 98 },
           ],
         },
         {
-          id: "pune",
-          name: "Pune",
+          id: "san-francisco",
+          name: "San Francisco",
           type: "city",
           children: [
-            { id: "pune-west", name: "Pune West Chapter", type: "chapter", activeMembers: 112 },
-          ],
-        },
-      ],
-    },
-    {
-      id: "karnataka",
-      name: "Karnataka",
-      type: "state",
-      children: [
-        {
-          id: "bangalore",
-          name: "Bangalore",
-          type: "city",
-          children: [
-            { id: "bangalore-tech", name: "Bangalore Tech Chapter", type: "chapter", activeMembers: 203 },
-            { id: "bangalore-north", name: "Bangalore North Chapter", type: "chapter", activeMembers: 87 },
+            { id: "sf-bay", name: "San Francisco Bay Chapter", type: "chapter", activeMembers: 112 },
+            { id: "sf-tech", name: "San Francisco Tech Chapter", type: "chapter", activeMembers: 156 },
           ],
         },
       ],
     },
     {
-      id: "delhi",
-      name: "Delhi",
+      id: "new-york",
+      name: "New York",
       type: "state",
       children: [
         {
-          id: "delhi-city",
-          name: "Delhi",
+          id: "new-york-city",
+          name: "New York City",
           type: "city",
           children: [
-            { id: "delhi-east", name: "Delhi East Chapter", type: "chapter", activeMembers: 98 },
-            { id: "delhi-central", name: "Delhi Central Chapter", type: "chapter", activeMembers: 134 },
+            { id: "nyc-manhattan", name: "Manhattan Chapter", type: "chapter", activeMembers: 203 },
+            { id: "nyc-brooklyn", name: "Brooklyn Chapter", type: "chapter", activeMembers: 87 },
+            { id: "nyc-queens", name: "Queens Chapter", type: "chapter", activeMembers: 134 },
+          ],
+        },
+      ],
+    },
+    {
+      id: "texas",
+      name: "Texas",
+      type: "state",
+      children: [
+        {
+          id: "houston",
+          name: "Houston",
+          type: "city",
+          children: [
+            { id: "houston-central", name: "Houston Central Chapter", type: "chapter", activeMembers: 98 },
+            { id: "houston-north", name: "Houston North Chapter", type: "chapter", activeMembers: 76 },
+          ],
+        },
+        {
+          id: "austin",
+          name: "Austin",
+          type: "city",
+          children: [
+            { id: "austin-downtown", name: "Austin Downtown Chapter", type: "chapter", activeMembers: 125 },
+          ],
+        },
+      ],
+    },
+    {
+      id: "florida",
+      name: "Florida",
+      type: "state",
+      children: [
+        {
+          id: "miami",
+          name: "Miami",
+          type: "city",
+          children: [
+            { id: "miami-south", name: "Miami South Beach Chapter", type: "chapter", activeMembers: 89 },
           ],
         },
       ],
