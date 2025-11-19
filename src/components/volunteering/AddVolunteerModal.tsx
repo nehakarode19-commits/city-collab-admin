@@ -152,6 +152,7 @@ export function AddVolunteerModal({ open, onOpenChange }: AddVolunteerModalProps
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={loading}
+              className="active:bg-destructive active:text-destructive-foreground"
             >
               Cancel
             </Button>

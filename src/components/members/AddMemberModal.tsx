@@ -434,7 +434,7 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
             </div>
 
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => onOpenChange(false)} className="active:bg-destructive active:text-destructive-foreground">Cancel</Button>
               <Button onClick={handleSaveMemberInfo}>Next</Button>
             </div>
           </TabsContent>
@@ -636,7 +636,7 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
             <div className="flex justify-between">
               <Button variant="outline" onClick={() => setActiveTab("member-info")}>Back</Button>
               <div className="flex gap-2">
-                <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+                <Button variant="outline" onClick={() => onOpenChange(false)} className="active:bg-destructive active:text-destructive-foreground">Cancel</Button>
                 <Button onClick={handleSubmit}>Save Profile</Button>
               </div>
             </div>

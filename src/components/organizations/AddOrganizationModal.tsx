@@ -649,7 +649,7 @@ export function AddOrganizationModal({ open, onOpenChange }: AddOrganizationModa
                 />
 
                 <div className="flex justify-end gap-4">
-                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="active:bg-destructive active:text-destructive-foreground">
                     Cancel
                   </Button>
                   <Button type="submit">Save Organization</Button>
