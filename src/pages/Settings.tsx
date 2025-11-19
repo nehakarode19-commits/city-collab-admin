@@ -301,7 +301,7 @@ const Settings = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={loading} className="active:bg-destructive active:text-destructive-foreground">Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleRegenerateLink}
               disabled={loading}

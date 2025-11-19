@@ -284,7 +284,7 @@ export function CreateDonationModal({ open, onOpenChange }: CreateDonationModalP
               variant="outline"
               onClick={handleCancel}
               disabled={loading}
-              className="bg-muted text-foreground hover:bg-muted/80"
+              className="bg-muted text-foreground hover:bg-muted/80 active:bg-destructive active:text-destructive-foreground"
             >
               Cancel
             </Button>

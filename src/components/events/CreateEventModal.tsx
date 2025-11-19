@@ -995,7 +995,7 @@ export const CreateEventModal = ({ open, onOpenChange }: CreateEventModalProps) 
         </Tabs>
 
         <div className="flex justify-end gap-2 mt-6">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="active:bg-destructive active:text-destructive-foreground">
             Cancel
           </Button>
           <Button onClick={handleSubmit}>
