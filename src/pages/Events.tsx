@@ -4,6 +4,7 @@ import { Plus, Calendar as CalendarIcon, MapPin, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CreateEventModal } from "@/components/events/CreateEventModal";
+import { EventDetailsModal } from "@/components/events/EventDetailsModal";
 
 interface Event {
   id: string;
@@ -56,6 +57,13 @@ const mockEvents: Event[] = [
 
 const Events = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  const handleViewDetails = (event: Event) => {
+    setSelectedEvent(event);
+    setDetailsModalOpen(true);
+  };
 
   const getStatusColor = (status: Event["status"]) => {
     switch (status) {
@@ -82,6 +90,11 @@ const Events = () => {
       </div>
 
       <CreateEventModal open={createModalOpen} onOpenChange={setCreateModalOpen} />
+      <EventDetailsModal 
+        open={detailsModalOpen} 
+        onOpenChange={setDetailsModalOpen}
+        event={selectedEvent}
+      />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {mockEvents.map((event) => (
@@ -109,7 +122,14 @@ const Events = () => {
                 <p className="text-sm font-medium text-foreground">{event.organization}</p>
               </div>
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">View Details</Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => handleViewDetails(event)}
+                >
+                  View Details
+                </Button>
                 <Button size="sm" className="flex-1">Manage</Button>
               </div>
             </CardContent>
