@@ -1,16 +1,249 @@
-import { Card } from "@/components/ui/card";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Send, CheckCircle2, Network, Search } from "lucide-react";
+import { StatCard } from "@/components/dashboard/StatCard";
+import { HierarchyTree } from "@/components/relationships/HierarchyTree";
+import { ChaptersTable } from "@/components/relationships/ChaptersTable";
+import { CollaborationsTable } from "@/components/relationships/CollaborationsTable";
+import { SendRequestModal } from "@/components/relationships/SendRequestModal";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const mockChapters = [
+  {
+    id: 1,
+    srNo: 1,
+    name: "Mumbai Central Chapter",
+    location: "Mumbai, Maharashtra",
+    activeMembers: 145,
+    events: 28,
+    activeSponsors: 12,
+    contactName: "Rajesh Kumar",
+    contactNumber: "+91 98765 43210",
+    requestStatus: null,
+  },
+  {
+    id: 2,
+    srNo: 2,
+    name: "Delhi East Chapter",
+    location: "Delhi, Delhi",
+    activeMembers: 98,
+    events: 15,
+    activeSponsors: 8,
+    contactName: "Priya Sharma",
+    contactNumber: "+91 98765 43211",
+    requestStatus: "sent",
+  },
+  {
+    id: 3,
+    srNo: 3,
+    name: "Bangalore Tech Chapter",
+    location: "Bangalore, Karnataka",
+    activeMembers: 203,
+    events: 42,
+    activeSponsors: 18,
+    contactName: "Amit Patel",
+    contactNumber: "+91 98765 43212",
+    requestStatus: "accepted",
+  },
+  {
+    id: 4,
+    srNo: 4,
+    name: "Chennai South Chapter",
+    location: "Chennai, Tamil Nadu",
+    activeMembers: 76,
+    events: 11,
+    activeSponsors: 6,
+    contactName: "Lakshmi Iyer",
+    contactNumber: "+91 98765 43213",
+    requestStatus: null,
+  },
+  {
+    id: 5,
+    srNo: 5,
+    name: "Pune West Chapter",
+    location: "Pune, Maharashtra",
+    activeMembers: 112,
+    events: 19,
+    activeSponsors: 9,
+    contactName: "Vikram Singh",
+    contactNumber: "+91 98765 43214",
+    requestStatus: "sent",
+  },
+];
+
+const mockCollaborations = [
+  {
+    id: 1,
+    chapter1: "Mumbai Central Chapter",
+    chapter2: "Pune West Chapter",
+    type: "Joint Event",
+    status: "ongoing" as const,
+    startDate: "2024-01-15",
+    events: 3,
+  },
+  {
+    id: 2,
+    chapter1: "Delhi East Chapter",
+    chapter2: "Bangalore Tech Chapter",
+    type: "Resource Sharing",
+    status: "completed" as const,
+    startDate: "2023-11-10",
+    events: 5,
+  },
+  {
+    id: 3,
+    chapter1: "Chennai South Chapter",
+    chapter2: "Mumbai Central Chapter",
+    type: "Volunteer Exchange",
+    status: "pending" as const,
+    startDate: "2024-02-01",
+    events: 0,
+  },
+];
 
 const Relationships = () => {
+  const [sendRequestOpen, setSendRequestOpen] = useState(false);
+  const [selectedChapter, setSelectedChapter] = useState<any>(null);
+  const [searchCommunity, setSearchCommunity] = useState("");
+  const [searchLocation, setSearchLocation] = useState("all");
+  const [chapterRequestStatus, setChapterRequestStatus] = useState<Record<number, string>>({});
+
+  const handleSendRequest = (chapter: any) => {
+    setSelectedChapter(chapter);
+    setSendRequestOpen(true);
+  };
+
+  const handleRequestSent = (chapterId: number) => {
+    setChapterRequestStatus((prev) => ({ ...prev, [chapterId]: "sent" }));
+  };
+
+  const filteredChapters = mockChapters.filter((chapter) => {
+    const matchesCommunity = chapter.name.toLowerCase().includes(searchCommunity.toLowerCase());
+    const matchesLocation =
+      searchLocation === "all" || chapter.location.includes(searchLocation);
+    return matchesCommunity && matchesLocation;
+  });
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Relationships</h1>
-        <p className="text-muted-foreground mt-1">View and manage member and organization relationships</p>
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Relationships & Collaboration</h1>
+          <p className="text-muted-foreground mt-1">
+            Manage chapter hierarchies and collaborations
+          </p>
+        </div>
       </div>
 
-      <Card className="p-6">
-        <p className="text-center text-muted-foreground">Relationship mapping features coming soon...</p>
-      </Card>
+      {/* Stats Cards */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <StatCard
+          title="Sent Requests"
+          value="34"
+          change="+8"
+          changeType="increase"
+          icon={Send}
+          iconColor="text-primary"
+        />
+        <StatCard
+          title="Connections Accepted"
+          value="28"
+          change="+12"
+          changeType="increase"
+          icon={CheckCircle2}
+          iconColor="text-success"
+        />
+        <StatCard
+          title="Hierarchy Status"
+          value="156"
+          change="+5"
+          changeType="increase"
+          icon={Network}
+          iconColor="text-info"
+        />
+      </div>
+
+      {/* Visual Hierarchy Tree */}
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Hierarchy Visualization</h2>
+        <HierarchyTree />
+      </div>
+
+      {/* Tabs for Chapters and Collaborations */}
+      <Tabs defaultValue="chapters" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="chapters">Chapters</TabsTrigger>
+          <TabsTrigger value="collaborations">Collaborations</TabsTrigger>
+        </TabsList>
+
+        {/* Chapters Tab */}
+        <TabsContent value="chapters" className="space-y-6">
+          {/* Search & Filters */}
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex flex-wrap gap-4">
+                <div className="flex-1 min-w-[250px]">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search for Community..."
+                      value={searchCommunity}
+                      onChange={(e) => setSearchCommunity(e.target.value)}
+                      className="pl-9"
+                    />
+                  </div>
+                </div>
+                <Select value={searchLocation} onValueChange={setSearchLocation}>
+                  <SelectTrigger className="w-[250px]">
+                    <SelectValue placeholder="Search for Location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Locations</SelectItem>
+                    <SelectItem value="Maharashtra">Maharashtra</SelectItem>
+                    <SelectItem value="Delhi">Delhi</SelectItem>
+                    <SelectItem value="Karnataka">Karnataka</SelectItem>
+                    <SelectItem value="Tamil Nadu">Tamil Nadu</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Chapters Table */}
+          <ChaptersTable
+            chapters={filteredChapters}
+            onSendRequest={handleSendRequest}
+            requestStatus={chapterRequestStatus}
+          />
+        </TabsContent>
+
+        {/* Collaborations Tab */}
+        <TabsContent value="collaborations">
+          <CollaborationsTable collaborations={mockCollaborations} />
+        </TabsContent>
+      </Tabs>
+
+      {/* Send Request Modal */}
+      <SendRequestModal
+        open={sendRequestOpen}
+        onOpenChange={setSendRequestOpen}
+        chapter={selectedChapter}
+        onRequestSent={() => {
+          if (selectedChapter) {
+            handleRequestSent(selectedChapter.id);
+          }
+        }}
+      />
     </div>
   );
 };
