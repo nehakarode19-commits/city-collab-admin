@@ -7,6 +7,7 @@ import { StatCard } from "@/components/dashboard/StatCard";
 import { DonationCard } from "@/components/donations/DonationCard";
 import { DonorTable } from "@/components/donations/DonorTable";
 import { CreateDonationModal } from "@/components/donations/CreateDonationModal";
+import { CreateDonationRecordModal } from "@/components/donations/CreateDonationRecordModal";
 import { EditDonationModal } from "@/components/donations/EditDonationModal";
 import { DeleteDonationModal } from "@/components/donations/DeleteDonationModal";
 import {
@@ -96,7 +97,8 @@ const Donations = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [eventFilter, setEventFilter] = useState("all");
   const [donationType, setDonationType] = useState("all");
-  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [createCampaignModalOpen, setCreateCampaignModalOpen] = useState(false);
+  const [createDonationModalOpen, setCreateDonationModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedDonation, setSelectedDonation] = useState<number | null>(null);
@@ -120,11 +122,11 @@ const Donations = () => {
           <p className="text-muted-foreground mt-1">Manage campaigns, donors, and contributions</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" onClick={() => setCreateModalOpen(true)}>
+          <Button variant="outline" onClick={() => setCreateCampaignModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             New Campaign
           </Button>
-          <Button onClick={() => setCreateModalOpen(true)}>
+          <Button onClick={() => setCreateDonationModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Create Donation
           </Button>
@@ -237,7 +239,8 @@ const Donations = () => {
       </Tabs>
 
       {/* Modals */}
-      <CreateDonationModal open={createModalOpen} onOpenChange={setCreateModalOpen} />
+      <CreateDonationModal open={createCampaignModalOpen} onOpenChange={setCreateCampaignModalOpen} />
+      <CreateDonationRecordModal open={createDonationModalOpen} onOpenChange={setCreateDonationModalOpen} />
       <EditDonationModal
         open={editModalOpen}
         onOpenChange={setEditModalOpen}
