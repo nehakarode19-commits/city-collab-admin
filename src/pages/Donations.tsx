@@ -120,7 +120,7 @@ const Donations = () => {
           <p className="text-muted-foreground mt-1">Manage campaigns, donors, and contributions</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => setCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             New Campaign
           </Button>

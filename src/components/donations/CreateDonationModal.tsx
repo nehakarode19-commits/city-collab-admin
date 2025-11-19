@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -168,6 +169,9 @@ export function CreateDonationModal({ open, onOpenChange }: CreateDonationModalP
           <DialogTitle className="text-2xl font-bold text-foreground">
             Create Donation Campaign
           </DialogTitle>
+          <DialogDescription className="text-muted-foreground">
+            Fill in the details below to create a new donation campaign.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
