@@ -75,7 +75,7 @@ export function ChaptersTable({ chapters, onSendRequest, requestStatus }: Chapte
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Chapters Listing</CardTitle>
+        <CardTitle>Organization Listing</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
